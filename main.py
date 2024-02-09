@@ -1,11 +1,14 @@
-from fastapi import FastAPI
-from config import github_client_id, github_secret_id
-from starlette.responses import RedirectResponse
 import requests
+import os
+from fastapi import FastAPI
+from dotenv import load_dotenv
+from starlette.responses import RedirectResponse
 
 
 app = FastAPI()
-
+load_dotenv()
+github_client_id = os.getenv('GITHUB_CLIENT_ID')
+github_secret_id = os.getenv('GITHUB_SECRET_ID')
 
 @app.get("/auth")
 async def authorize():
