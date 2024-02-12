@@ -24,17 +24,24 @@ google_redirect_url = os.getenv('GOOGLE_REDIRECT_URL')
 
 @app.get("/auth/{id}")
 async def authorize(id:str):
+
     if id == '1':
+
         authorization_url = os.getenv('GITHUB_AUTHORIZATION_URL')
+
         return  RedirectResponse(f'{authorization_url}{github_client_id}', status_code = 302)
+
     elif id == '2':
+
         authorization_url = os.getenv('GOOGLE_AUTHORIZATION_URL')
+
         return  RedirectResponse(f'{authorization_url}{google_client_id}&redirect_uri={google_redirect_url}&scope=openid%20profile%20email&access_type=offline', status_code = 302)
 
 @app.get('/login/{id}')
 async def login(code:str, id:str):
     
     if id == '1':
+        
         token_url = os.getenv('GITHUB_TOKEN_URL')
         params = {
             'client_id': github_client_id,
